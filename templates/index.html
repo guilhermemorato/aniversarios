@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="/static/styles.css" rel="stylesheet">
+        <title>Birthdays</title>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Birthdays</h1>
+        </div>
+        <div class="container">
+            <div class="section">
+
+                <h2>Add a new Birthday</h2>
+                <!-- TODO: Create a form for users to submit a name, a month, and a day -->
+
+                <form action="/" method="post"> <!-- Cria ação para guardar dados inseridos no form abaixo -->
+                    <input autocomplete="off" autofocus name="name" placeholder="Nome" type="text"> <!-- campo para o nome -->
+                    <input autocomplete="off" autofocus name="day" placeholder="Dia" type="text"> <!-- campo para o dia -->
+                    <input list="month" name = "month"> <!-- campo para o mês -->
+                    <datalist id="month" >
+                        <option data-value=1 value="Janeiro"></option>
+                        <option data-value=2 value="Fevereiro"></option>
+                        <option data-value=3 value="Março"></option>
+                        <option data-value=4 value="Abril"></option>
+                        <option data-value=5 value="Maio"></option>
+                        <option data-value=6 value="Junho"></option>
+                        <option data-value=7 value="Julho"></option>
+                        <option data-value=8 value="Agosto"></option>
+                        <option data-value=9 value="Setembro"></option>
+                        <option data-value=10 value="Outubro"></option>
+                        <option data-value=11 value="Novembro"></option>
+                        <option data-value=12 value="Dezembro"></option>
+
+                    </datalist>
+                    <p></p>
+                    <button type="submit">Cadastrar aniversariante</button>
+                </form>
+
+
+            </div>
+
+            <div class="section">
+
+                <h2>All Birthdays</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Birthday</th>
+                            <th>Month</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- TODO: Loop through the database entries to display them in this table -->
+
+                        {% for registro in registros_aniversarios %} <!-- JINJA LOOP varrendo o banco de dados-->
+                            <tr> <!-- cria uma nova linha para imprimir este registro -->
+                                <td> {{ registro.name }} </td>
+                                <td> {{ registro.day }} </td>
+                                <td> {{ registro.month_text }} </td>
+                                <td>
+                                <!-- Cria botão de Deletar para este ID -->
+                                <form action="/deletar" method="post">
+                                    <input name="id" type="hidden" value="{{ registro.id}}">
+                                    <button type="submit">Apagar Registro</button>
+                                </form>
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
